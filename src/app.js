@@ -8,18 +8,19 @@ var {addNewVisitor, createTable} = require("./db");
 
 var pug = require("pug")
 
-// Create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
-app.set('view engine', 'pug')
-app.set('./view', path.join(__dirname, './view'))
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
 app.use(express.static('public'));
 
+app.set('view engine', 'pug')
+app.set('./view', path.join(__dirname, './view'))
+
 app.get('/new_visitor', function (req, res) {
-   res.sendFile(path.join(__dirname + "/src/index.html" ));
+   res.sendFile(path.join(__dirname + "/index.html" ));
 })
 
-app.post('/thank_you', urlencodedParser, function (req, res) {
+app.post('/thank_you', function (req, res) {
 
    if (req.body)
       throw new Error('The requested body cannot be empty')
@@ -35,3 +36,5 @@ var server = app.listen(8081, function () {
    
    console.log("Example app listening at http://%s:%s", host, port)
 })
+
+module.exports = server;
