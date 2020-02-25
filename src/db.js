@@ -1,3 +1,14 @@
+
+require("dotenv").config();
+
+const Client = require("pg").Client;
+const client = new Client({
+  user: process.env.DB_USER,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASS,
+});
+
+client.connect()
 const createTable = async() =>{
     try {
         const sql =await client.query(
@@ -26,7 +37,8 @@ const addNewVisitor = async(name,age,date,time,assistant,comments) => {
 		let query = await client.query(sql,values)
 		return query.rows
 	} catch(e) {
-		console.log(e);
+        console.log(e);
+        await client.end()
 	}
   }
 
