@@ -10,31 +10,23 @@ var pug = require("pug")
 
 // Create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
+app.set('view engine', 'pug')
+app.set('./view', path.join(__dirname, './view'))
 
 app.use(express.static('public'));
 
 app.get('/new_visitor', function (req, res) {
-   res.sendFile(path.join(__dirname + "/index.html" ));
+   res.sendFile(path.join(__dirname + "/src/index.html" ));
 })
 
-app.post('/response', urlencodedParser, function (req, res) {
-   // Prepare output in JSON format
-   // if (req.body)
-   //    throw new Error('The requested body cannot be empty')
+app.post('/thank_you', urlencodedParser, function (req, res) {
 
-   //    res.render("index", {
-   //       vname:req.body.vname
-   //    });
-   response = {
-      vname:req.body.vname,
-      aname:req.body.aname,
-      age:req.body.age,
-      date:req.body.date,
-      time:req.body.time,
-      comments:req.body.comments
-   };
-   console.log(response);
-   res.end(JSON.stringify(response));
+   if (req.body)
+      throw new Error('The requested body cannot be empty')
+
+      res.render("index", {
+         vname:req.body.vname
+      });
 })
 
 var server = app.listen(8081, function () {
