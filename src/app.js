@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require("path");
 
+const pug = require("pug");
 //createing app
 const app = express();
 
@@ -8,7 +9,6 @@ const app = express();
 //declaring database
 const {addNewVisitor, createTable} = require("./db");
 
-// const pug = require("pug");
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
@@ -39,7 +39,7 @@ app.post('/new_visitor', async function (req, res) {
   createTable();
    const visitor =await addNewVisitor(vname,aname,age,date,time,comments);
 
-     return res.render("success", { data: visitor[0] });
+     return res.render("index", { data: visitor[0] });
 })
 
 const server = app.listen(8081, function () {
