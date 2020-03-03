@@ -24,7 +24,8 @@ app.get('/', function (req,res){
 
 app.get('/new_visitor', function (req, res) {
    res.sendFile(path.join(__dirname + "/index.html" ));
-})
+});
+
 
 app.post('/new_visitor', async function (req, res) {
 
@@ -32,9 +33,10 @@ app.post('/new_visitor', async function (req, res) {
   let aname=req.body.aname;
   let  age=req.body.age;
   let date=req.body.date;
-  let time=req.body.date;
+  let time=req.body.time;
   let comments=req.body.comments;
 
+  createTable();
    const visitor =await addNewVisitor(vname,aname,age,date,time,comments);
 
      return res.render("success", { data: visitor[0] });

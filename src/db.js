@@ -1,4 +1,3 @@
-
 require("dotenv").config();
 
 const Client = require("pg").Client;
@@ -12,33 +11,33 @@ client.connect()
 const createTable = async() =>{
     try {
         const sql =await client.query(
-                `CREATE TABLE "public"."visitors" (
-                    "visitor_name" character varying(30),
-                    "assistant" character varying(30),
-                    "visitor_age" integer,
-                    "date_of_visit" VARCHAR,
-                    "time_of_visit" time without time zone,
-                    "comments" character varying(350),
-                    CONSTRAINT "visitors_pkey" PRIMARY KEY ("visitor_id")
-                ) WITH (oids = false);
-                `
+                `CREATE TABLE IF NOT EXISTS 
+           Visitors(
+            ID SERIAL PRIMARY KEY,
+            visitor_name VARCHAR(100),
+            assistant VARCHAR(100),
+            visitor_age INTEGER,
+            date_of_visit DATE,
+            time_of_visit TIME,
+            comments VARCHAR(225)
+        );`
         )
     } catch (error) {
         console.log(e)
     }
 }
 
-const addNewVisitor = async(name,age,date,time,assistant,comments) => {
+const addNewVisitor = async(name,assistant,age,date,time,comments) => {
   
-    const sql='INSERT INTO visitors(visitor_name,visitor_age,date_of_visit,time_of_visit,assistant,comments) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
+    const sql='INSERT INTO visitors(visitor_name,assistant,visitor_age,date_of_visit,time_of_visit,comments) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
     const values= 
-      [name,age,date,time,assistant,comments];
+      [name,assistant,age,date,time,comments];
 	try {
 		let query = await client.query(sql,values)
 		return query.rows
 	} catch(e) {
         console.log(e);
-        await client.end()
+        // await client.end()
 	}
   }
 
