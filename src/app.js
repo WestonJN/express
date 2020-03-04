@@ -1,17 +1,12 @@
 const express = require('express');
 const path = require("path");
-
 const pug = require("pug");
-//createing app
-const app = express();
 
-// const bodyParser = require('body-parser');
-//declaring database
+const app = express();
 const {addNewVisitor, createTable} = require("./db");
 
-
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: true}));
 
 app.use('/new_visitor', express.static('public'));
 
@@ -39,7 +34,7 @@ app.post('/new_visitor', async function (req, res) {
   createTable();
    const visitor =await addNewVisitor(vname,aname,age,date,time,comments);
 
-     return res.render("index", { data: visitor[0] });
+     return res.render("index", { data: visitor[1] });
 })
 
 const server = app.listen(8081, function () {
