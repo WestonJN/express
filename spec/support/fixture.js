@@ -3,7 +3,7 @@ const html = `<html>
     <title>Form</title>
 </head>
     <body>
-    <form action = "/response" method = "GET">
+    <form action = "/new_visitor" method = "POST">
         <label for="vname">Visitor Name:</label><br>
         <input type="text" id="vname" name="vname" placeholder="Enter your name" required><br>
         <label for="aname">Assistant Name:</label><br>
@@ -20,5 +20,5 @@ const html = `<html>
 
     </form>
  </body> 
-</html>`
+</html>`;
 module.exports = html;

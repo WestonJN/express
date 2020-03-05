@@ -37,7 +37,6 @@ const addNewVisitor = async(name,assistant,age,date,time,comments) => {
 		return query.rows
 	} catch(e) {
         console.log(e);
-        // await client.end()
 	}
   }
 
