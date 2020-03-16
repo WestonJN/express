@@ -11,6 +11,9 @@ app.use(express.urlencoded({extended: true}));
 app.use('/new_visitor', express.static('public'));
 
 app.set('view engine', 'pug')
+app.get('/', function (req, res) {
+   res.render('index')
+ })
 
 app.get('/new_visitor', function (req, res) {
    res.sendFile(path.join(__dirname + "/index.html" ));
